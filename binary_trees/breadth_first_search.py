@@ -4,30 +4,19 @@ from queue import Queue
 def print_breadth_first(head : node):
     if head is None:
         return
-    
-    if head.value is not None:
-        print(head.value, end=" ")
     q = Queue()
     q.put(head)
-    _print_breadth_first(q)
+    while not q.empty():
+        head = q.get()
+        if head.value is not None:
+            print(head.value, end=" ")
 
-def _print_breadth_first(q : Queue):
-    head : node = q.get()
+        if head.left is not None:
+            q.put(head.left)
+        if head.right is not None:
+            q.put(head.right)
 
-    if head is None:
-        return None
-
-    if head.left is not None and head.left.value is not None:
-        print(head.left.value, end=" ")
-    q.put(head.left)
-
-    if head.right is not None and head.right.value is not None:
-        print(head.right.value, end=" ")
-    q.put(head.right)
-
-    _print_breadth_first(q)
-    
-
+            
 
 #      1
 #    2   3
