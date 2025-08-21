@@ -25,3 +25,39 @@ Lamp 1 at 1 covers [1,1]
 Lamp 2 at 0 covers [-1,1]
 Position 0 is illuminated by both lamps, so it has the maximum illumination.
 """
+
+from typing import List
+from collections import defaultdict
+
+def street_illumination(lamps : List[List[int]]) -> int:
+    starts = defaultdict(int)
+    ends = defaultdict(int)
+    points = set()
+    for pos, rad in lamps:
+        starts[pos - rad] += 1
+        ends[pos + rad] += 1
+        points.add(pos - rad)
+        points.add(pos + rad)
+    points = sorted(points)
+
+    illuminated = 0
+    best = 0
+    res = 0
+    for p in points:
+        illuminated += starts[p]
+        if illuminated > best:
+            best = illuminated
+            res = p
+        illuminated -= ends[p]
+    return res
+
+def _run_test(lamps : List[List[int]], expected : int):
+    result = street_illumination(lamps)
+    passed = (result == expected)
+    if not passed:
+        print(f"For Lamps: {lamps} | Expected: {expected} | Recieved: {result}")
+        assert passed
+
+if __name__ == "__main__":
+    _run_test([[-3,2],[1,2],[3,3]], -1)
+    _run_test([[1, 0], [0, 1]], 1)
