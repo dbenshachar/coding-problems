@@ -1,0 +1,2 @@
+All code in a labelled folder is solved explicitly knowing the algorithm or data structure needed to be used or implemented to solve the problem.
+However, problems in practice are solved without knowing the algorithm or data structure to use to solve the problem.

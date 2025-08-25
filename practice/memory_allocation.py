@@ -23,13 +23,15 @@ def memory_allocation(memory : List[int], queries : List[Tuple[int, int]]) -> Li
             alloc = q[1]
             for idx, mem in key.items():
                 if mem >= alloc:
-                    for i in range(idx * 8, idx * 8 + 8):
+                    offset = mem - alloc
+                    key[idx] = offset
+                    for i in range(idx * 8 + offset, idx * 8 + 8):
                         memory[i] = 1
                     res.append(idx)
                     alloc = None
                     break
 
-            if alloc is None:
+            if alloc is not None:
                 res.append(-1)
 
         else:
